@@ -3,6 +3,8 @@ $( document ).ready( onReady );
 function onReady(){
     $( '#addTrackButton' ).on( 'click', addTrack );
     $( '#tracksOut').on('click', '.delete', deleteSong);
+    $( '#tracksOut').on('click', '.up', upSongRank);
+    $( '#tracksOut').on('click', '.down', downSongRank);
     getSongs();
 }
 
@@ -48,6 +50,8 @@ function getSongs(){
             // append to DOM
             let li = $(`<li>
                         ${ song.rank }: ${ song.track } by ${ song.artist }
+                        <button class ="up">Up Rank</button>
+                        <button class ="down">Down Rank</button>
                         <button class ="delete">Delete</button>
                      </li>` );
             li.data('id', song.id);
@@ -74,4 +78,42 @@ function deleteSong() {
         console.log( err );
 
     })
+}
+
+function upSongRank() {
+    console.log('Upping song rank');
+
+    let id = $(this).closest('li').data('id');
+    console.log('change id', id);
+
+    changeSongRank('up', id);
+}
+
+function downSongRank() {
+    console.log('down song rank');
+
+    let id = $(this).closest('li').data('id');
+    console.log('change id', id);
+
+    changeSongRank('down', id);
+}
+
+function changeSongRank(direction, id) {
+   
+    $.ajax({
+        method: 'PUT',
+        url: `/songs/${id}`,
+        data: {
+            direction: direction
+        }
+    }).then(function(response){
+        getSongs();
+
+    }).catch( function( err ){
+        // handle errors
+        alert( 'error deleting song. see console for details' );
+        console.log( err );
+
+    })
+
 }

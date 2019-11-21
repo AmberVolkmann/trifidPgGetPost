@@ -56,3 +56,25 @@ app.delete('/songs/:id', (req,res)=>{
     })
     
 })
+
+//Modify the rank of our song
+app.put('/songs/:id', (req, res) => {
+    console.log(`PUT hit id =`, req.params.id, req.body);
+    let direction = req.body.direction;
+    // in req.body.direction should be 'up' or 'down'
+    let sqlText
+    if (direction === 'up'){
+        sqlText =`UPDATE "songs" SET rank=rank+1 WHERE id =$1`;
+    } else if (direction === 'down'){
+        sqlText =`UPDATE "songs" SET rank=rank-1 WHERE id =$1`;
+    }else{
+        res.sendStatus(500);
+    }pool.query( sqlText, [req.params.id] ).then(response => {
+        res.sendStatus(200);
+    }).catch(error =>{
+        console.log('error moving track ----------->', error);
+        res.sendStatus(400);
+
+    })
+    
+})
