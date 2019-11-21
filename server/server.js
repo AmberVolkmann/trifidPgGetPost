@@ -47,5 +47,12 @@ app.post( '/songs', ( req, res )=>{
 //Delete a song by ID
 app.delete('/songs/:id', (req,res)=>{
     console.log('DELETE hit id=', req.params.id)
-    res.sendStatus(200);
+    let queryString = `DELETE FROM "songs" WHERE "id"=$1;`;
+    pool.query( queryString, [req.params.id] ).then(result => {
+        res.sendStatus(200);
+    }).catch(error =>{
+        console.log('error deleteing track ----------->', error);
+        res.sendStatus(400);
+    })
+    
 })
