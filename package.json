@@ -1,7 +1,7 @@
 {
   "name": "pgLecture",
   "version": "1.0.0",
-  "description": "",
+  "description": "Full Stack Intro ===",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,5 +13,14 @@
   "dependencies": {
     "express": "^4.17.1",
     "pg": "^7.14.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmberVolkmann/trifidPgGetPost.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AmberVolkmann/trifidPgGetPost/issues"
+  },
+  "homepage": "https://github.com/AmberVolkmann/trifidPgGetPost#readme"
 }
